@@ -108,6 +108,12 @@ RUN \
         docker-php-ext-install -j$(getconf _NPROCESSORS_ONLN) xdebug && \
         apk del --no-cache .build-dependencies
 
+#Compile gmp
+RUN \
+        apk add --no-cache --virtual=.build-dependencies $PHPIZE_DEPS gmp-dev && \
+        docker-php-ext-install gmp && \
+        apk del --no-cache .build-dependencies
+
 #Compile WKHTMLTOPDF
 #ENV WKHTMLTOPDF_VERSION=1.0.0
 #RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
